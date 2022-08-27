@@ -49,9 +49,9 @@ class TaskListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if not self.request.user.is_superuser:
-            card, _ = Card.objects.get_or_create(user=self.request.user)
-            context['card'] = card
+        #if not self.request.user.is_superuser:
+        card, _ = Card.objects.get_or_create(user=self.request.user)
+        context['card'] = card
 
         return context
     
@@ -107,7 +107,7 @@ class TaskDetailView(LoginRequiredMixin, UserPassesTestMixin, FormMixin, DetailV
 
 @login_required
 def leaderboard(request):
-    leaderboard = list(filter(lambda t: t.score > 0, Card.objects.all()))
+    leaderboard = list(filter(lambda t: t.score > 0 and not t.user.is_superuser , Card.objects.all()))
     if len(leaderboard) > 0:
         leaderboard = sorted(leaderboard, key=lambda t: (-t.score, t.last_time))[:10]
     context= {
@@ -115,3 +115,13 @@ def leaderboard(request):
     }
     
     return render(request, 'quiz/leaderboard.html', context=context)
+
+@login_required(login_url='login')
+def showHint(request, pk):
+    task = Task.objects.get(id = pk)
+    card = Card.objects.get(user = request.user)
+    card.penalty_points += task.hint_points
+    hint = task.hint
+    card.save()
+
+    return render(request, 'quiz/hint.html', {'hint':hint})
