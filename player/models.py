@@ -12,7 +12,7 @@ class Player(models.Model):
     institute_id = models.CharField(max_length=20, unique=True, db_index=True, primary_key=True)
     contact = PhoneNumberField()
 
-@receiver(pre_save, sender=User)
-def check_limits(sender, instance, **kwargs):
-    if instance.player_set.count() > 2:
-        raise ValidationError("Too many players on this team")
+# @receiver(pre_save, sender=User)
+# def check_limits(sender, instance, **kwargs):
+#     if instance.player_set.count() > 2:
+#         raise ValidationError("Too many players on this team")
