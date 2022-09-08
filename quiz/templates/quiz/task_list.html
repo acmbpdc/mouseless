@@ -21,6 +21,7 @@
             </tbody>
         </table>
     </div>
+    {% if not user.is_superuser %}
     <div class="col-md-4 pr-0">
         <div class="mb-4 mt-4 d-flex flex-column justify-content-between content-section">
             <h3 class="align-self-center">Your Card</h3>
@@ -40,5 +41,6 @@
             {% endif %}
         </div>
     </div>
+    {% endif %}
 </div>
 {% endblock content %}
