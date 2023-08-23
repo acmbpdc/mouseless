@@ -31,7 +31,7 @@
         </div>
     {% endfor %}
 
-    {% if players|length < 2%}
+    {% if players|length < 1%}
         <a href="{% url 'player-create' %}">
             <button class="btn btn-outline-primary">
                 New
