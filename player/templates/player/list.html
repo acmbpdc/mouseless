@@ -2,8 +2,8 @@
 {% block content %}
     <h2>Player Info</h2>
     <div class="content-section">
-        <p>This information is taken to contact you in case you have won the grand prize.</p>
-        <p>Please add your details.</p>
+        <p>This information is taken to get in touch with exceptional players like you!</p>
+        <p>Click on `New` to add your details.</p>
     </div>
     {% for player in players %}
         <div class="media-body mb-4 mt-4 d-flex bd-highlight border justify-content-between">
@@ -11,22 +11,6 @@
                 <h4>{{ player.name }}</h4>
                 <div> ID : {{ player.institute_id }}</div>
                 <div> Contact : {{ player.contact }}</div>
-            </div>
-            <div class="p-3 bd-highlight d-flex flex-column">
-                <div class="p-2 bd-highlight d-flex">
-                    <a href="{% url 'player-update' player.pk %}">
-                        <button class="btn btn-outline-info">
-                            Update
-                        </button>
-                    </a>
-                </div>
-                <div class="p-2 bd-highlight d-flex">
-                    <a href="{% url 'player-delete' player.pk %}">
-                        <button class="btn btn-outline-danger">
-                            Delete
-                        </button>
-                    </a>
-                </div>
             </div>
         </div>
     {% endfor %}
