@@ -131,3 +131,8 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 # #STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 # STATIC_ROOT=os.path.join(BASE_DIR,"/static/")
+# And after that comment out STATIC_ROOT, so that it looks like:
+
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+# #STATIC_ROOT=os.path.join(BASE_DIR,"/static/")
+# On server uncommenting both was working best
