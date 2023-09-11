@@ -123,5 +123,16 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR + "/" + "static"] 
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
+# In production mode
+# When using command collectstatic.py , comment out STATICFILES_DIRS... It looks like:
+
+# #STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+# STATIC_ROOT=os.path.join(BASE_DIR,"/static/")
+# And after that comment out STATIC_ROOT, so that it looks like:
+
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+# #STATIC_ROOT=os.path.join(BASE_DIR,"/static/")
+# On server uncommenting both was working best

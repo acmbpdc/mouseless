@@ -29,7 +29,7 @@
   {% if form.instance.value != form.instance.task.correct and not user.is_superuser%}
   <div class="col-md-4">
     <div class="content-section d-flex flex-column justify-content-between">
-      <form method="POST">
+      <form method="POST" autocomplete="off">
         {% csrf_token %}
         <fieldset class="form-group">
           <legend class="border-bottom mb-4">Answer</legend>
