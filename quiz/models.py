@@ -49,6 +49,8 @@ class Answer(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     value = models.CharField(max_length=256)
     submit = models.DateTimeField(auto_now=True)
+    time_submitted = models.DateTimeField(auto_now=True)
+
 
     class Meta:
         unique_together = (('card', 'task'),)
