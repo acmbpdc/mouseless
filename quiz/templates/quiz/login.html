@@ -1,4 +1,5 @@
 {% extends "quiz/base.html" %}
+{% load socialaccount %}
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
@@ -11,7 +12,14 @@
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Login</button>
             </div>
-        </form>
+        </form> 
+        <div> 
+            <a href="{% provider_login_url 'google' %}">
+            <button>
+                Sign up with Google
+            </button>
+            {% comment %} </a> {% endcomment %}
+        </div>
         <div class="border-top pt-3">
             <small class="text-muted">
                 Want to get Started? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>

@@ -1,0 +1,10 @@
+import os
+def cdwalker(cdrom,cdfile):
+    exports = ""
+    for root,dirs,files in os.walk(cdrom):
+        exports+= ("\n %s;%s;%s" % (root,dirs,files))
+    open(cdfile, 'w').write(exports)
+
+#cdwalker("d:","f:\\Python32\\py\\export2.cdc")
+cdwalker("F:\\music\\main music\\周杰伦","f:\\Python32\\py\\export1.cdc")         
+print("END")
