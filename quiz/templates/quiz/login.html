@@ -1,6 +1,53 @@
 {% extends "quiz/base.html" %}
+{% load socialaccount %}
 {% load crispy_forms_tags %}
 {% block content %}
+
+    <style> 
+        .btn-google, .btn-submit {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: 500; 
+            border: 0.5px solid #bbbbbb;
+            cursor: pointer;
+            color: #0092cf;
+        }
+
+        .btn-google img {
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        .btn-google {
+            background-color: #ffffff;
+        }
+
+        .or-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #bbb;
+        }
+
+        .or-divider:not(:empty)::before {
+            margin-right: .25em;
+        }
+
+        .or-divider:not(:empty)::after {
+            margin-left: .25em;
+        }
+ 
+    </style>
+
     <div class="content-section">
         <form method="POST">
             {% csrf_token %}
@@ -11,7 +58,17 @@
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Login</button>
             </div>
-        </form>
+        </form> 
+
+        <div class="or-divider">OR</div>
+
+        <div> 
+            <a href="{% provider_login_url 'google' %}">
+            <button class="btn btn-google">
+                <img src="https://playtht-website-assets.s3.amazonaws.com/img/brand/google.svg" alt="Google logo"/>Sign in with Google
+            </button>
+            </a>
+        </div>
         <div class="border-top pt-3">
             <small class="text-muted">
                 Want to get Started? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
