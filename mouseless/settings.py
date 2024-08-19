@@ -87,8 +87,8 @@ TEMPLATES = [
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id':'962811866770-6uourl66lqhb72a61263hnor0jckccgs.apps.googleusercontent.com',
-            'secret': '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',
+            'client_id':'',
+            'secret': '',
           
         },
         'SCOPE': ['profile','email',],
