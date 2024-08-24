@@ -13,6 +13,8 @@ SECRET_KEY = '^yw=ffn7=i73af9o50%8byyq7qp3^hjj1^24oh^j2fjej1zm2_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ 
+SITE_ID = 1
 
 ALLOWED_HOSTS = [
     '*',
@@ -36,19 +38,32 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mathfilters',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
+]
+
+SOCIALACCOUNT_LOGIN_ON_GET=True
+
+AUTHENTICATION_BACKENDS = [
+    'allauth.account.auth_backends.AuthenticationBackend',  # Allauth backend
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware", 
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'mouseless.urls'
@@ -68,6 +83,30 @@ TEMPLATES = [
         },
     },
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id':'',
+            'secret': '',
+          
+        },
+        'SCOPE': ['profile','email',],
+         'AUTH_PARAMS': {'access_type': 'online'},
+        'METHOD': 'oauth2',
+        'VERIFIED_EMAIL': True,
+    },
+    # 'github': {
+    #     'APP': {
+    #         'client_id': '',
+    #         'secret': '',
+           
+    #     }
+    # }
+   
+}
+
+# SOCIALACCOUNT_LOGIN_ON_GET=True
 
 WSGI_APPLICATION = 'mouseless.wsgi.application'
 
@@ -121,7 +160,7 @@ USE_TZ = True
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'home' 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 # STATIC_ROOT = os.path.join(BASE_DIR, "static")
@@ -136,3 +175,5 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 # #STATIC_ROOT=os.path.join(BASE_DIR,"/static/")
 # On server uncommenting both was working best
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
