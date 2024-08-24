@@ -120,9 +120,12 @@ def leaderboard(request):
 @login_required(login_url='login')
 def showHint(request, pk):
     task = Task.objects.get(id = pk)
-    card = Card.objects.get(user = request.user)
+    card = Card.objects.get(user = request.user) #score
     card.penalty_points += task.hint_points
     hint = task.hint
     card.save()
-
-    return render(request, 'quiz/hint.html', {'hint':hint})
+    print(task.hint_points)
+    if (card.score < task.hint_points):
+        return render(request, 'quiz/no_hint.html')
+    else:
+        return render(request, 'quiz/hint.html', {'hint':hint})

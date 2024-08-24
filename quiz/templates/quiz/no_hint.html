@@ -1,0 +1,11 @@
+{% extends "quiz/base.html" %}
+{% load crispy_forms_tags %}
+{% load markdown_extras %}
+
+{% block content %}
+    <div class="content-section">
+        <h3>Sorry, no easy way out yet...<span style="color: red; font-weight: bold;">Insufficient Points</span></h3>
+        <br>
+        <a href="{{ request.META.HTTP_REFERER }}">Go Back</a>
+    </div>
+{% endblock content %}
