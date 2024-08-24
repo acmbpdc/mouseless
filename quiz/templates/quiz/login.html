@@ -49,7 +49,7 @@
     </style>
 
     <div class="content-section">
-        <form method="POST">
+        {% comment %} <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Log In</legend>
@@ -60,19 +60,23 @@
             </div>
         </form> 
 
-        <div class="or-divider">OR</div>
+        <div class="or-divider">OR</div> {% endcomment %}
 
         <div> 
+            <legend class="border-bottom mb-4">Log In</legend>
+            <h6>Welcome to Mouseless!</h6> 
+            <h7>Grab your keyboard, ditch your mouse, and prepare for a mouse-free marathon!</h7>
             <a href="{% provider_login_url 'google' %}">
             <button class="btn btn-google">
                 <img src="https://playtht-website-assets.s3.amazonaws.com/img/brand/google.svg" alt="Google logo"/>Sign in with Google
             </button>
             </a>
+            <small>*Note: You can open this in an incognito window to avoid signing out at the end of the event</small>
         </div>
-        <div class="border-top pt-3">
+        {% comment %} <div class="border-top pt-3">
             <small class="text-muted">
                 Want to get Started? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
             </small>
-        </div>
+        </div> {% endcomment %}
     </div>
 {% endblock content %}
