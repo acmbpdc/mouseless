@@ -2,5 +2,5 @@ __pycache__
 tasks/
 secret.key
 .venv
-mouseless/.env
+ML-Essentials/mouseless/mouseless/.env
 mouseenv/
