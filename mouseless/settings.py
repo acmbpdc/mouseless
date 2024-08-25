@@ -2,6 +2,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 from dotenv import load_dotenv 
 
 load_dotenv()
@@ -16,7 +17,7 @@ print("CLIENT_SECRET: ", client_secret)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # with open(os.path.join(BASE_DIR, 'secret.key')) as f:
-SECRET_KEY = '^yw=ffn7=i73af9o50%8byyq7qp3^hjj1^24oh^j2fjej1zm2_'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
