@@ -42,6 +42,15 @@ Replace:
     python manage.py createsuperuser
     ```
 
+    ### Adding environment variables for OAuth
+* Create a new file ```.env``` and add in the secrets needed
+
+    ```bash
+    CLIENT_ID = XXX.apps.googleusercontent.com
+    CLIENT_SECRET=XXX-YYY-ZZZ
+    SECRET_KEY = XXX
+    ```
+
 ## Usage
 
 Start server

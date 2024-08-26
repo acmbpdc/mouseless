@@ -122,13 +122,14 @@ def showHint(request, pk):
     task = Task.objects.get(id = pk)
     card = Card.objects.get(user=request.user) #score
     hint = Hint.objects.filter(user=request.user, hint_task=task).exists()
-    if hint:
-         return render(request, 'quiz/hint.html', {'hint':hint})
-    elif (card.score < task.hint_points):
+    
+    if (card.score < task.hint_points):
         return render(request, 'quiz/no_hint.html')
     else:
-        card.penalty_points += task.hint_points 
         hint = task.hint 
+        if hint:
+         return render(request, 'quiz/hint.html', {'hint':hint})
+        card.penalty_points += task.hint_points 
         card.save()
         h = Hint(user=request.user, hint_task=task)
         h.save()
