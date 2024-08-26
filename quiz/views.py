@@ -121,12 +121,12 @@ def leaderboard(request):
 def showHint(request, pk):
     task = Task.objects.get(id = pk)
     card = Card.objects.get(user=request.user) #score
-    hint = Hint.objects.filter(user=request.user, hint_task=task).exists()
+    hint_check = Hint.objects.filter(user=request.user, hint_task=task).exists()
     
-    if ((card.score < task.hint_points) and (not(hint))):
+    if ((card.score < task.hint_points) and (not(hint_check))):
         return render(request, 'quiz/no_hint.html')
     else:
-        if hint:
+        if hint_check:
             hint = task.hint 
             return render(request, 'quiz/hint.html', {'hint':hint})
         hint = task.hint 
