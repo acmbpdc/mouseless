@@ -8,7 +8,7 @@ from django.views.generic import (
     DetailView
 )
 from .forms import UserRegisterForm, AnswerForm
-from .models import Task, Card, Answer
+from .models import Task, Card, Answer, Hint
 from django.views.generic.edit import FormMixin
 
 
@@ -120,9 +120,16 @@ def leaderboard(request):
 @login_required(login_url='login')
 def showHint(request, pk):
     task = Task.objects.get(id = pk)
-    card = Card.objects.get(user = request.user)
-    card.penalty_points += task.hint_points
-    hint = task.hint
-    card.save()
-
-    return render(request, 'quiz/hint.html', {'hint':hint})
+    card = Card.objects.get(user=request.user) #score
+    hint = Hint.objects.filter(user=request.user, hint_task=task).exists()
+    if hint:
+         return render(request, 'quiz/hint.html', {'hint':hint})
+    elif (card.score < task.hint_points):
+        return render(request, 'quiz/no_hint.html')
+    else:
+        card.penalty_points += task.hint_points 
+        hint = task.hint 
+        card.save()
+        h = Hint(user=request.user, hint_task=task)
+        h.save()
+        return render(request, 'quiz/hint.html', {'hint':hint})
