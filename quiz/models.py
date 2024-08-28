@@ -54,3 +54,8 @@ class Answer(models.Model):
 
     class Meta:
         unique_together = (('card', 'task'),)
+        
+class Hint(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    hint_task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="hint_task")
+    time_hint_taken = models.DateTimeField(auto_now=True)

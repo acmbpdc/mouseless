@@ -3,13 +3,21 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+from dotenv import load_dotenv 
+
+load_dotenv()
+
+client_id = os.getenv("CLIENT_ID")
+client_secret = os.getenv("CLIENT_SECRET")
+# print("CLIENT_ID: ", client_id )
+# print("CLIENT_SECRET: ", client_secret)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # with open(os.path.join(BASE_DIR, 'secret.key')) as f:
-SECRET_KEY = '^yw=ffn7=i73af9o50%8byyq7qp3^hjj1^24oh^j2fjej1zm2_'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -87,8 +95,8 @@ TEMPLATES = [
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id':'',
-            'secret': '',
+            'client_id':client_id,
+            'secret': client_secret,
           
         },
         'SCOPE': ['profile','email',],
