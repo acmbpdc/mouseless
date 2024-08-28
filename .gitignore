@@ -3,3 +3,5 @@ tasks/
 secret.key
 .venv
 .env
+venv
+.env
