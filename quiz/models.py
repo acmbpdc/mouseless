@@ -14,6 +14,14 @@ class Task(models.Model):
     correct = models.CharField(max_length=256)
     hint = models.CharField(max_length=256, default='No hint!!')
     hint_points = models.IntegerField(default=0)
+    order = models.PositiveIntegerField(
+        default=0,
+        blank=False,
+        null=False,
+    )
+    
+    class Meta:
+        ordering = ['order']
 
     @property
     def formatted_markdown(self):
@@ -21,7 +29,6 @@ class Task(models.Model):
 
     def get_absolute_url(self):
         return reverse('task-detail', kwargs={'pk': self.pk})
-
 
 class Card(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
@@ -43,14 +50,12 @@ class Card(models.Model):
         
         return str(last_time - self.start)
 
-
 class Answer(models.Model):
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     value = models.CharField(max_length=256)
     submit = models.DateTimeField(auto_now=True)
     time_submitted = models.DateTimeField(auto_now=True)
-
 
     class Meta:
         unique_together = (('card', 'task'),)

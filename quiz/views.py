@@ -57,7 +57,7 @@ class TaskListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         return context
 
     def get_queryset(self):
-        return Task.objects.all().order_by('points')
+        return Task.objects.all().order_by('order', 'points')
 
 
 

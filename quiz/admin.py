@@ -1,9 +1,10 @@
 from django.contrib import admin
 from .models import Task, Card, Answer, Hint
 from markdownx.admin import MarkdownxModelAdmin
+from adminsortable2.admin import SortableAdminMixin
 
 @admin.register(Task)
-class TaskAdmin(MarkdownxModelAdmin):
+class TaskAdmin(SortableAdminMixin, MarkdownxModelAdmin):
     fields = ('name', 'text', 'points', 'correct','hint','hint_points')
     list_display = ('name', 'points', 'correct',)
 
