@@ -33,7 +33,6 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'quiz/register.html', {'form': form})
 
-
 class TaskListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Task
     template_name = 'quiz/task_list.html'
