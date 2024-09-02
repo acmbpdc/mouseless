@@ -6,7 +6,6 @@ from django.urls import reverse
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
 from datetime import datetime
-from django.contrib.auth.decorators import login_required
 
 class Task(models.Model):
     name = models.CharField(max_length=256)
