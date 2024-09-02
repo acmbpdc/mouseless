@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv, find_dotenv
 
-load_dotenv('.env.local')
+load_dotenv(find_dotenv())
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -199,17 +199,3 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 # On server uncommenting both was working best
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-
-# Use below for prod
-"""
-DATABASES = {
- 'default': {
- 'ENGINE': 'django.db.backends.mysql',
- 'NAME': os.getenv('MYSQL_DATABASE'),
- 'USER': os.getenv('MYSQL_USERNAME'),
- 'PASSWORD': os.getenv('MYSQL_PASSWORD'),
- 'HOST': os.getenv('MYSQL_HOST')
- }
-}
-"""

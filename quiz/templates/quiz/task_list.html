@@ -12,10 +12,17 @@
                 </thead>
                 <tbody>
                     {% for task in tasks %}
+                        {% if task.completed %}
+                        <tr class="table-success">
+                            <td>{{ task.name }}</td>
+                            <td>{{ task.points }}</td>
+                        </tr>
+                        {% else %}
                         <tr>
                             <td><a class="article-title" href="{% url 'task-detail' task.id %}">{{ task.name }}</a></td>
                             <td>{{ task.points }}</td>
                         </tr>
+                        {% endif %}
                     </a>
                     {% endfor %}
                 </tbody>
@@ -37,6 +44,10 @@
                 <div class="d-flex justify-content-between">
                     <div class="p-1 bd-highlight">Time</div>
                     <div class="p-1 bd-highlight text-success">{{ card.last_time }}</div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="p-1 bd-highlight">Completed</div>
+                    <div class="p-1 bd-highlight text-success">{{ card.solved_questions }}</div>
                 </div>
                 {% endif %}
             </div>

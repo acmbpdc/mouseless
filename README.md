@@ -11,7 +11,7 @@ This is a web server that can host quizzes.
 ## Configuration
 *   Install dependencies
 
-    ### Fix Conf URL Path
+    ### Environment Setup
     First, make and activate a virtual env
     ```bash
     python -m venv venv
@@ -21,16 +21,7 @@ This is a web server that can host quizzes.
     ```bash
     pip install -r requirements.txt
     ```
-    In the virtual env: ```\venv\lib\site-packages\markdownx\urls.py```
 
-Replace:
-    ```
-    from django.conf.urls import url
-    ```
-    With:
-    ```
-    from django.urls import re_path as url
-    ```
 * Perform migrations
     ```bash
         python manage.py makemigrations
@@ -43,7 +34,7 @@ Replace:
     ```
 
     ### Adding environment variables for OAuth
-* Create a new file ```.env``` and add in the secrets needed
+* Create a new file ```.env``` and add in the secrets needed (For Development)
 
     ```bash
     CLIENT_ID=XXX.apps.googleusercontent.com

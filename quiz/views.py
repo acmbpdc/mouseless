@@ -56,7 +56,10 @@ class TaskListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         return context
 
     def get_queryset(self):
-        return Task.objects.all().order_by('order', 'points')
+        tasks = Task.objects.all().order_by('order', 'points')
+        for task in tasks:
+            task.completed = task.is_completed(self.request.user)
+        return tasks
 
 
 

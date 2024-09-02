@@ -6,6 +6,7 @@ from django.urls import reverse
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
 class Task(models.Model):
     name = models.CharField(max_length=256)
@@ -26,19 +27,18 @@ class Task(models.Model):
     @property
     def formatted_markdown(self):
         return markdownify(self.text)
+    
+    def is_completed(self, user):
+        return Answer.objects.filter(card__user=user, task=self, value=self.correct).exists()
 
     def get_absolute_url(self):
         return reverse('task-detail', kwargs={'pk': self.pk})
-
-    def is_completed_by(self, user): 
-        return Answer.objects.filter(card__user=user, task=self, value=self.correct).exists()
 
 
 class Card(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     start = models.DateTimeField(auto_now_add=True, auto_now=False)
     penalty_points = models.IntegerField(default=0)
-    solved_questions = models.IntegerField(default=0) 
 
     @property
     def solved_questions(self):
