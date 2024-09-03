@@ -82,3 +82,20 @@ body {
   .account-heading {
     font-size: 2.5rem;
   }
+
+  .wrong-answer {
+    box-shadow: 0 0 10px red;
+  }
+
+  .animate-red-glow {
+    box-shadow: 0 0 10px red;
+    transition: box-shadow 1s ease-in-out;
+}
+
+#error-message {
+  color: red;
+}
+
+.completed-task {
+  background-color: #d4edda;   
+}

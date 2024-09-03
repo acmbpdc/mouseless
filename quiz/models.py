@@ -19,21 +19,30 @@ class Task(models.Model):
         blank=False,
         null=False,
     )
-    
+
     class Meta:
         ordering = ['order']
 
     @property
     def formatted_markdown(self):
         return markdownify(self.text)
+    
+    def is_completed(self, user):
+        return Answer.objects.filter(card__user=user, task=self, value=self.correct).exists()
 
     def get_absolute_url(self):
         return reverse('task-detail', kwargs={'pk': self.pk})
+
 
 class Card(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     start = models.DateTimeField(auto_now_add=True, auto_now=False)
     penalty_points = models.IntegerField(default=0)
+
+    @property
+    def solved_questions(self):
+        return self.answer_set.filter(value=F('task__correct')).count()
+    
     @property
     def score(self):
         score = self.answer_set.filter(value=F('task__correct')).aggregate(score=Sum('task__points')).get('score')

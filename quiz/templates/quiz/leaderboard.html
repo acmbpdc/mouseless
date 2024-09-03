@@ -9,6 +9,7 @@
             <th>Username</th>
             <th>Score</th>
             <th>Time</th>
+            <th>Questions Solved</th>
         </tr>
     </thead>
     <tbody>
@@ -18,6 +19,7 @@
                 <td>{{ card.user.username }}</td>
                 <td>{{ card.score }}</td>
                 <td>{{ card.last_time }}</td>
+                <td>{{ card.solved_questions }}</td>
             </tr>
         {% endfor %}
     </tbody>
