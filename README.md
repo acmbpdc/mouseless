@@ -202,4 +202,43 @@ python manage.py reorder quiz.Task
 ```
 This will now set the `order` attribute of each Task auto-incrementally.
 
+### Updating the wsgi configuration file
+
+In the Web Section on pythonanywhere, open the WSGI configuration file and edit it to this:-
+
+```python
+import os
+import sys
+
+# Path to your Django project folder (where manage.py and settings.py are)
+path = '<project_folder_path>'
+if path not in sys.path:
+    sys.path.append(path)
+
+# Set the settings module to your project
+os.environ['DJANGO_SETTINGS_MODULE'] = '<project_name>.settings'
+
+# Load the Django application
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+```
+
+## Setting Up Google OAuth Client for Player Login
+
+To enable Google login for users, you need to set up the OAuth client on the Google Cloud Console:
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/).
+2. Navigate to **APIs & Services > Credentials**.
+3. Then choose the appropriate **OAuth client ID**.
+4. Set/Add the **Authorized redirect URI** to:
+
+   ```
+   https://<your-domain>/accounts/google/login/callback/
+   ```
+   Replace `<your-domain>` with your website’s domain (for example, `yourwebsite.com` or `yourusername.pythonanywhere.com`)
+
+5. Save the changes.
+
+Now your users can log in with Google!
+
 And now we are ready for production 🚀

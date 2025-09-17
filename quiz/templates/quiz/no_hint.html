@@ -4,8 +4,28 @@
 
 {% block content %}
     <div class="content-section">
-        <h3>Sorry, no easy way out yet...<span style="color: #dc3545; font-weight: bold;">Insufficient Points</span></h3>
-        <br>
-        <a href="{{ request.META.HTTP_REFERER }}">Go Back</a>
+        <div class="card">
+            <div class="card-header bg-warning text-dark">
+                <h4><i class="fas fa-exclamation-triangle"></i> Hint Not Available</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <h5>Insufficient Points</h5>
+                    <p>You need <strong>{{ required_points }}</strong> points to unlock the hint for 
+                    {% if task_name %}"{{ task_name }}"{% else %}this question{% endif %}.</p>
+                    <p>Your current score: <strong>{{ current_score }}</strong> points</p>
+                    <hr>
+                    <p class="mb-0">💡 <em>Complete more challenges to earn points and unlock hints!</em></p>
+                </div>
+                <div class="text-center">
+                    <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Back to Question
+                    </a>
+                    <a href="{% url 'task-list' %}" class="btn btn-secondary ml-2">
+                        <i class="fas fa-list"></i> View All Challenges
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock content %}

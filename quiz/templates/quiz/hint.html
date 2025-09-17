@@ -4,9 +4,20 @@
 
 {% block content %}
     <div class="content-section">
-        <h3>Hint for the question:</h3>
-        {{ hint | markdown | safe }}
-        <br>
-        <a href="{{ request.META.HTTP_REFERER }}">Go Back</a>
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h4><i class="fas fa-lightbulb"></i> Hint {% if task_name %}for "{{ task_name }}"{% endif %}</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-light">
+                    {{ hint | markdown | safe }}
+                </div>
+                <div class="text-center">
+                    <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Back to Question
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock content %}

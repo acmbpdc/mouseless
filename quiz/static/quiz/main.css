@@ -1,101 +1,473 @@
 body {
-    background: #fafafa;
-    color: #333333;
+    background: white;
+    color: black;
     margin-top: 5rem;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
-    color: #444444;
+    color: black;
   }
-  
+
   ul {
     margin: 0;
   }
-  
+
   .bg-steel {
-    background-color: #0069a7;
+    background-color: #0069d9;
   }
-  
+
   .site-header .navbar-nav .nav-link {
-    color: #cbd5db;
+    color: white;
   }
-  
+
   .site-header .navbar-nav .nav-link:hover {
-    color: #ffffff;
+    color: #cce7ff;
   }
-  
+
   .site-header .navbar-nav .nav-link.active {
     font-weight: 500;
   }
-  
+
   .content-section {
-    background: #ffffff;
+    background: white;
     padding: 10px 20px;
-    border: 1px solid #dddddd;
+    border: 1px solid #0069d9;
     border-radius: 3px;
     margin-bottom: 20px;
   }
-  
+
   .article-title {
-    color: #444444;
+    color: black;
   }
-  
+
   a.article-title:hover {
-    color: #428bca;
+    color: #0069d9;
     text-decoration: none;
   }
-  
+
   .article-content {
     white-space: pre-line;
   }
-  
+
   .article-img {
     height: 65px;
     width: 65px;
     margin-right: 16px;
   }
-  
+
   .article-metadata {
     padding-bottom: 1px;
     margin-bottom: 4px;
-    border-bottom: 1px solid #e3e3e3
+    border-bottom: 1px solid #0069d9;
   }
-  
+
   .article-metadata a:hover {
-    color: #333;
+    color: black;
     text-decoration: none;
   }
-  
+
   .article-svg {
     width: 25px;
     height: 25px;
     vertical-align: middle;
   }
-  
+
   .account-img {
     height: 125px;
     width: 125px;
     margin-right: 20px;
     margin-bottom: 16px;
   }
-  
+
   .account-heading {
     font-size: 2.5rem;
   }
 
   .wrong-answer {
-    box-shadow: 0 0 10px red;
+    box-shadow: 0 0 10px #0069d9;
   }
 
   .animate-red-glow {
-    box-shadow: 0 0 10px red;
+    box-shadow: 0 0 10px #0069d9;
     transition: box-shadow 1s ease-in-out;
 }
 
 #error-message {
-  color: red;
+  color: #0069d9;
 }
 
 .completed-task {
-  background-color: #d4edda;   
+  background-color: #90EE90;   /* Light green for completed tasks */
+  color: black;
+}
+
+.table-success {
+  background-color: #90EE90 !important;   /* Light green for highlighted row */
+  color: #000 !important;                /* Black text */
+}
+
+.table-success a,
+.table-success a:visited {
+  color: #000 !important;                 /* Black links */
+  text-decoration: none;
+}
+
+.table-success a:hover {
+  color: #0056b3 !important;              /* Dark blue on hover for contrast */
+  text-decoration: underline;
+}
+
+.dark-mode {
+  background: black !important;
+  color: white !important;
+}
+.dark-mode body {
+  background: black !important;
+  color: white !important;
+}
+.dark-mode .content-section {
+  background: black !important;
+  border-color: #003d82 !important;
+}
+.dark-mode .navbar, .dark-mode .navbar.bg-steel {
+  background-color: #003d82 !important;
+}
+.dark-mode .navbar .nav-link, .dark-mode .navbar .navbar-brand {
+  color: white !important;
+}
+.dark-mode .navbar .nav-link:hover {
+  color: #b3d9ff !important;
+}
+.dark-mode .table {
+  background-color: black !important;
+  color: white !important;
+}
+.dark-mode .table th, .dark-mode .table td {
+  border-color: #003d82 !important;
+}
+.dark-mode .btn, .dark-mode .btn-outline-info, .dark-mode .btn-outline-primary, .dark-mode .btn-outline-danger {
+  background-color: #003d82 !important;
+  color: white !important;
+  border-color: #003d82 !important;
+}
+.dark-mode .btn:hover {
+  background-color: #002654 !important;
+  color: white !important;
+}
+.dark-mode .alert {
+  background-color: black !important;
+  color: white !important;
+  border-color: #003d82 !important;
+}
+.dark-mode .article-title, .dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4, .dark-mode h5, .dark-mode h6 {
+  color: white !important;
+}
+.dark-mode a.article-title:hover {
+  color: #b3d9ff !important;
+}
+.dark-mode .table-success,
+.dark-mode .table .table-success,
+body.dark-mode .table-success,
+.dark-mode .table-bordered .table-success,
+.dark-mode .table-hover .table-success,
+.dark-mode .table-light .table-success,
+body.dark-mode .table-bordered .table-success,
+body.dark-mode .table-hover .table-success,
+body.dark-mode .table-light .table-success {
+  color: black !important;  /* Black text for completed tasks in dark mode */
+}
+
+.dark-mode .table-success td,
+.dark-mode .table .table-success td,
+body.dark-mode .table-success td,
+.dark-mode .table-bordered .table-success td,
+.dark-mode .table-hover .table-success td,
+.dark-mode .table-light .table-success td {
+  color: black !important;  /* Black text for completed tasks in dark mode */
+}
+
+.dark-mode .table-success a,
+.dark-mode .table .table-success a,
+body.dark-mode .table-success a {
+  color: black !important;  /* Black text for links in completed tasks */
+  text-decoration: none;
+}
+.dark-mode .table-success a:hover,
+.dark-mode .table .table-success a:hover,
+body.dark-mode .table-success a:hover {
+  color: #0069d9 !important;  /* Blue on hover for better contrast */
+  text-decoration: underline;
+}
+.dark-mode .completed-task,
+body.dark-mode .completed-task {
+  color: black !important;  /* Black text for completed tasks */
+}
+
+/* Additional override for Bootstrap table-success in dark mode */
+body.dark-mode .table-bordered.table-hover.table-light tbody tr.table-success {
+  color: black !important;
+}
+
+body.dark-mode .table-bordered.table-hover.table-light tbody tr.table-success td {
+  color: black !important;
+}
+
+/* Ultimate override for completed tasks in dark mode */
+body.dark-mode tr.table-success,
+body.dark-mode tr.table-success td,
+body.dark-mode tr.table-success a,
+body.dark-mode .table tr.table-success,
+body.dark-mode .table tr.table-success td,
+body.dark-mode .table tr.table-success a {
+  color: black !important;
+}
+.dark-mode .card {
+  background-color: black !important;
+  border-color: #003d82 !important;
+  color: white !important;
+}
+.dark-mode .card-header {
+  background-color: #003d82 !important;
+  color: white !important;
+  border-color: #003d82 !important;
+}
+.dark-mode .card-body {
+  background-color: black !important;
+  color: white !important;
+}
+.dark-mode .alert-success {
+  background-color: black !important;
+  color: white !important;
+  border-color: #003d82 !important;
+}
+.dark-mode .alert-info {
+  background-color: black !important;
+  color: white !important;
+  border-color: #003d82 !important;
+}
+.dark-mode .alert-warning {
+  background-color: black !important;
+  color: white !important;
+  border-color: #003d82 !important;
+}
+.dark-mode .alert-danger {
+  background-color: black !important;
+  color: white !important;
+  border-color: #003d82 !important;
+}
+.dark-mode .bg-primary {
+  background-color: #003d82 !important;
+}
+.dark-mode .bg-info {
+  background-color: #003d82 !important;
+}
+.dark-mode .bg-success {
+  background-color: #003d82 !important;
+}
+.dark-mode .bg-warning {
+  background-color: #003d82 !important;
+}
+.dark-mode .bg-danger {
+  background-color: #003d82 !important;
+}
+.dark-mode .text-primary {
+  color: white !important;
+}
+.dark-mode .text-info {
+  color: white !important;
+}
+.dark-mode .text-success {
+  color: white !important;
+}
+.dark-mode .text-warning {
+  color: white !important;
+}
+.dark-mode .text-danger {
+  color: white !important;
+}
+
+/* New styles for improved hint and answer interface */
+.hint-section {
+  background-color: white;
+  border-left: 4px solid #0069d9;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.dark-mode .hint-section {
+  background-color: black !important;
+  border-left-color: #003d82 !important;
+}
+
+.answer-form {
+  border-top: 3px solid #0069d9;
+  padding-top: 1rem;
+}
+
+.dark-mode .answer-form {
+  border-top-color: #003d82 !important;
+}
+
+.phase-indicator {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: #0069d9;
+  color: white;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
+}
+
+.dark-mode .phase-indicator {
+  background-color: #003d82 !important;
+}
+
+.score-breakdown {
+  background-color: white;
+  border: 1px solid #0069d9;
+  border-radius: 0.375rem;
+  padding: 1rem;
+}
+
+.dark-mode .score-breakdown {
+  background-color: black !important;
+  border-color: #003d82 !important;
+}
+
+.progress-card {
+  transition: transform 0.2s;
+}
+
+.progress-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,105,217,0.1);
+}
+
+.dark-mode .progress-card:hover {
+  box-shadow: 0 4px 8px rgba(0,61,130,0.3) !important;
+}
+
+/* Document download styles */
+.document-section {
+  background-color: #f0f8ff;
+  border: 1px solid #0069d9;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.dark-mode .document-section {
+  background-color: #001122 !important;
+  border-color: #003d82 !important;
+}
+
+.document-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #0069d9;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  margin: 0.25rem;
+}
+
+.dark-mode .document-link {
+  background-color: #003d82 !important;
+}
+
+.document-link:hover {
+  background-color: #0056b3;
+  color: white;
+  text-decoration: none;
+}
+
+.dark-mode .document-link:hover {
+  background-color: #002654 !important;
+}
+
+/* Additional Bootstrap overrides for dark mode */
+.dark-mode .form-control {
+  background-color: black !important;
+  color: white !important;
+  border-color: #003d82 !important;
+}
+.dark-mode .form-control:focus {
+  background-color: black !important;
+  color: white !important;
+  border-color: #003d82 !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 61, 130, 0.25) !important;
+}
+.dark-mode .form-group label {
+  color: white !important;
+}
+.dark-mode .legend {
+  color: white !important;
+}
+.dark-mode fieldset legend {
+  color: white !important;
+}
+.dark-mode .border-bottom {
+  border-color: #003d82 !important;
+}
+.dark-mode small, .dark-mode .small {
+  color: white !important;
+}
+.dark-mode .form-text {
+  color: white !important;
+}
+.dark-mode .text-muted {
+  color: #b3d9ff !important;
+}
+.dark-mode p {
+  color: white !important;
+}
+.dark-mode ul li {
+  color: white !important;
+}
+.dark-mode strong, .dark-mode b {
+  color: white !important;
+}
+.dark-mode em, .dark-mode i {
+  color: white !important;
+}
+
+/* Celebration Animation */
+.celebration-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+  overflow: hidden;
+}
+
+.falling-emoji {
+  position: absolute;
+  top: -60px;
+  font-size: 2.5rem;
+  animation: fallDown 4s ease-in forwards;
+  opacity: 1;
+}
+
+@keyframes fallDown {
+  0% {
+    top: -60px;
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.8;
+  }
+  100% {
+    top: calc(100vh + 60px);
+    opacity: 0;
+    transform: rotate(360deg);
+  }
 }

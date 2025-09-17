@@ -8,7 +8,7 @@ from django.views.generic import (
     DetailView
 )
 from .forms import UserRegisterForm, AnswerForm
-from .models import Task, Card, Answer, Hint
+from .models import Task, Card, Answer, Hint, SiteSetting
 from django.views.generic.edit import FormMixin
 
 
@@ -51,12 +51,32 @@ class TaskListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         context = super().get_context_data(**kwargs)
         #if not self.request.user.is_superuser:
         card, _ = Card.objects.get_or_create(user=self.request.user)
+
+        # Get current mode from site settings
+        site_setting = SiteSetting.objects.first()
+        current_mode = 'keyboardless' if (site_setting and site_setting.dark_mode) else 'mouseless'
+
+        # Update user's phase if it doesn't match current mode
+        if card.phase != current_mode:
+            if current_mode == 'keyboardless':
+                # When switching to keyboardless, save mouseless score
+                card.update_mouseless_score()
+                card.penalty_points = 0  # Reset penalties for new phase
+            card.phase = current_mode
+            card.save()
+
         context['card'] = card
+        context['current_phase'] = current_mode
 
         return context
 
     def get_queryset(self):
-        tasks = Task.objects.all().order_by('order', 'points')
+        # Get current mode from site settings
+        site_setting = SiteSetting.objects.first()
+        current_mode = 'keyboardless' if (site_setting and site_setting.dark_mode) else 'mouseless'
+
+        # Only show tasks for the current phase
+        tasks = Task.objects.filter(question_type=current_mode).order_by('points', 'order')
         for task in tasks:
             task.completed = task.is_completed(self.request.user)
         return tasks
@@ -110,30 +130,52 @@ class TaskDetailView(LoginRequiredMixin, UserPassesTestMixin, FormMixin, DetailV
 
 @login_required
 def leaderboard(request):
-    leaderboard = list(filter(lambda t: t.score > 0 and not t.user.is_superuser , Card.objects.all()))
+    leaderboard = list(filter(lambda t: t.score > 0 and not t.user.is_superuser, Card.objects.all()))
     if len(leaderboard) > 0:
         leaderboard = sorted(leaderboard, key=lambda t: (-t.score, t.last_time))[:10]
-    context= {
-        'leaderboard' : leaderboard
+
+    # Get current mode for context
+    site_setting = SiteSetting.objects.first()
+    current_mode = 'keyboardless' if (site_setting and site_setting.dark_mode) else 'mouseless'
+
+    context = {
+        'leaderboard': leaderboard,
+        'current_mode': current_mode
     }
 
     return render(request, 'quiz/leaderboard.html', context=context)
 
 @login_required(login_url='login')
 def showHint(request, pk):
-    task = Task.objects.get(id = pk)
-    card = Card.objects.get(user=request.user) #score
+    task = Task.objects.get(id=pk)
+    card = Card.objects.get(user=request.user)
     hint_check = Hint.objects.filter(user=request.user, hint_task=task).exists()
-    
-    if ((card.score < task.hint_points) and (not(hint_check))):
-        return render(request, 'quiz/no_hint.html')
+
+    # Use current phase score for hint validation
+    current_score = card.current_phase_score
+
+    if ((current_score < task.hint_points) and (not(hint_check))):
+        context = {
+            'required_points': task.hint_points,
+            'current_score': current_score,
+            'task_name': task.name
+        }
+        return render(request, 'quiz/no_hint.html', context)
     else:
         if hint_check:
-            hint = task.hint 
-            return render(request, 'quiz/hint.html', {'hint':hint})
-        hint = task.hint 
-        card.penalty_points += task.hint_points 
+            hint = task.hint
+            return render(request, 'quiz/hint.html', {'hint': hint, 'task_name': task.name})
+        hint = task.hint
+        card.penalty_points += task.hint_points
         card.save()
         h = Hint(user=request.user, hint_task=task)
         h.save()
-        return render(request, 'quiz/hint.html', {'hint':hint})
+        return render(request, 'quiz/hint.html', {'hint': hint, 'task_name': task.name})
+
+def get_dark_mode_setting():
+    setting = SiteSetting.objects.first()
+    return setting.dark_mode if setting else False
+
+# Context processor to inject dark_mode_enabled into all templates
+def dark_mode_context(request):
+    return {'dark_mode_enabled': get_dark_mode_setting()}

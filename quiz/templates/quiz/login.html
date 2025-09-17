@@ -64,8 +64,7 @@
 
         <div> 
             <legend class="border-bottom mb-4">Log In</legend>
-            <h6>Welcome to Mouseless!</h6> 
-            <h7>Grab your keyboard, ditch your mouse, and prepare for a mouse-free marathon!</h7>
+            <h6>Welcome to {% if dark_mode_enabled %}Keyboardless{% else %}Mouseless{% endif %}!</h6> 
             <a href="{% provider_login_url 'google' %}">
             <button class="btn btn-google">
                 <img src="https://playtht-website-assets.s3.amazonaws.com/img/brand/google.svg" alt="Google logo"/>Log in with Google

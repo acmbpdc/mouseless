@@ -1,0 +1,157 @@
+body {
+    background: #fafafa;
+    color: #333333;
+    margin-top: 5rem;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: #444444;
+  }
+  
+  ul {
+    margin: 0;
+  }
+  
+  .bg-steel {
+    background-color: #0069a7;
+  }
+  
+  .site-header .navbar-nav .nav-link {
+    color: #cbd5db;
+  }
+  
+  .site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+  }
+  
+  .site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+  }
+  
+  .content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+  }
+  
+  .article-title {
+    color: #444444;
+  }
+  
+  a.article-title:hover {
+    color: #428bca;
+    text-decoration: none;
+  }
+  
+  .article-content {
+    white-space: pre-line;
+  }
+  
+  .article-img {
+    height: 65px;
+    width: 65px;
+    margin-right: 16px;
+  }
+  
+  .article-metadata {
+    padding-bottom: 1px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #e3e3e3
+  }
+  
+  .article-metadata a:hover {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .article-svg {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+  }
+  
+  .account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .account-heading {
+    font-size: 2.5rem;
+  }
+
+  .wrong-answer {
+    box-shadow: 0 0 10px red;
+  }
+
+  .animate-red-glow {
+    box-shadow: 0 0 10px red;
+    transition: box-shadow 1s ease-in-out;
+}
+
+#error-message {
+  color: red;
+}
+
+.completed-task {
+  background-color: #d4edda;   
+}
+
+.dark-mode {
+  background: #0a1931 !important;
+  color: #e8f0fe !important;
+}
+.dark-mode body {
+  background: #0a1931 !important;
+  color: #e8f0fe !important;
+}
+.dark-mode .content-section {
+  background: #11235a !important;
+  border-color: #185adb !important;
+}
+.dark-mode .navbar, .dark-mode .navbar.bg-steel {
+  background-color: #185adb !important;
+}
+.dark-mode .navbar .nav-link, .dark-mode .navbar .navbar-brand {
+  color: #e8f0fe !important;
+}
+.dark-mode .navbar .nav-link:hover {
+  color: #fff !important;
+}
+.dark-mode .table {
+  background-color: #11235a !important;
+  color: #e8f0fe !important;
+}
+.dark-mode .table th, .dark-mode .table td {
+  border-color: #185adb !important;
+}
+.dark-mode .btn, .dark-mode .btn-outline-info, .dark-mode .btn-outline-primary, .dark-mode .btn-outline-danger {
+  background-color: #185adb !important;
+  color: #e8f0fe !important;
+  border-color: #0a1931 !important;
+}
+.dark-mode .btn:hover {
+  background-color: #11235a !important;
+  color: #fff !important;
+}
+.dark-mode .alert {
+  background-color: #11235a !important;
+  color: #e8f0fe !important;
+  border-color: #185adb !important;
+}
+.dark-mode .article-title, .dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4, .dark-mode h5, .dark-mode h6 {
+  color: #e8f0fe !important;
+}
+.dark-mode a.article-title:hover {
+  color: #5390f5 !important;
+}
+.dark-mode .table-success {
+  background-color: #185adb !important;
+  color: #e8f0fe !important;
+}
+.dark-mode .completed-task {
+  background-color: #185adb !important;
+}

@@ -1,7 +1,7 @@
 import os
-from dotenv import load_dotenv, find_dotenv
-
-load_dotenv(find_dotenv())
+from dotenv import load_dotenv
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -89,6 +89,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'quiz.views.dark_mode_context',
             ],
         },
     },
@@ -124,14 +125,17 @@ WSGI_APPLICATION = 'mouseless.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-# Use below for prod
 """
+
+# Use below for prod
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -141,7 +145,7 @@ DATABASES = {
         'HOST': os.getenv('MYSQL_HOST')
     }
 }
-"""
+
 
 
 # Password validation
@@ -184,8 +188,12 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home' 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+#STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+# Media files (user uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # In production mode
 # When using command collectstatic.py , comment out STATICFILES_DIRS... It looks like:
@@ -199,3 +207,9 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 # On server uncommenting both was working best
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Import local settings if available
+try:
+    from .local_settings import *
+except ImportError:
+    pass

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Keyboardless Unscramble – LONG LIVE AAKAR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root { --ink:#222; --muted:#666; --accent:#0a7; --bg:#fafafa; }
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background: var(--bg); color: var(--ink); }
+  .wrap { max-width: 860px; margin: 32px auto; padding: 16px; }
+  h1 { font-size: 22px; margin: 0 0 8px; text-align: center; }
+  .sub { text-align: center; color: var(--muted); margin-bottom: 24px; }
+  .panel { background: #fff; border: 1px solid #ddd; border-radius: 14px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+  .row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .scrambled {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    background: #f6f6f6; border: 1px dashed #ccc; border-radius: 10px; padding: 10px 14px;
+    text-align: center; margin: 8px auto 16px; display: inline-block; color: #444;
+  }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(56px, 1fr)); gap: 10px; max-width: 560px; margin: 0 auto 14px; }
+  .tile {
+    user-select: none; cursor: pointer; border: 1px solid #ccc; background: #fff;
+    border-radius: 12px; height: 56px; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 22px; box-shadow: 0 1px 0 #eee;
+    transition: transform .05s ease-in-out, background .15s;
+  }
+  .tile:hover { background: #f2fffa; }
+  .tile:active { transform: translateY(1px) scale(.99); }
+  .tile.used { opacity: .35; pointer-events: none; }
+  .tile.space { font-size: 14px; color: #888; }
+  .answerBox {
+    border: 2px solid #bbb; background: #fff; min-height: 58px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; padding: 8px 12px;
+    font-size: 24px; font-weight: 700; letter-spacing: 1px; white-space: pre; margin: 0 auto 12px; max-width: 560px;
+  }
+  .controls { display: flex; gap: 10px; justify-content: center; margin-bottom: 8px; flex-wrap: wrap; }
+  button.action {
+    cursor: pointer; border: 1px solid #ccc; background: #fff; padding: 10px 14px; border-radius: 12px;
+    font-weight: 600; box-shadow: 0 1px 0 #eee;
+  }
+  button.primary { background: var(--accent); color: #fff; border-color: #068; }
+  .status { text-align: center; min-height: 24px; font-weight: 600; }
+  .ok { color: #0a7; }
+  .err { color: #c33; }
+  .hint { text-align: center; color: var(--muted); font-size: 14px; margin-top: 6px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Unscramble the Phrase (Mouse-Only)</h1>
+    <p class="sub">Click the tiles to build the phrase. Keep the spaces.</p>
+
+    <div class="panel">
+      <div class="scrambled" aria-label="Scrambled phrase shown">
+        Scrambled: <strong>ogln ielv aakar</strong>
+      </div>
+
+      <div class="answerBox" id="answerBox" aria-live="polite"> </div>
+
+      <div class="controls">
+        <button class="action" id="undoBtn" title="Remove last letter">Undo</button>
+        <button class="action" id="resetBtn" title="Clear and start again">Reset</button>
+        <button class="action primary" id="submitBtn" title="Check your answer">Submit</button>
+      </div>
+
+      <div class="tiles" id="tiles"></div>
+
+      <div class="status" id="status"></div>
+      <div class="hint">Hint: It’s a cheering phrase. Think “LONG LIVE …”.</div>
+    </div>
+  </div>
+
+<script>
+  // Target answer and exact scrambled pool (including spaces)
+  const TARGET = "LONG LIVE AAKAR";
+  const SCRAMBLED = "ogln ielv aakar"; // keep exactly as provided (lowercase + spaces)
+
+  // Build tiles from scrambled letters (preserve duplicates & spaces)
+  const pool = SCRAMBLED.split(""); // array of chars including spaces
+
+  const tilesEl = document.getElementById("tiles");
+  const answerEl = document.getElementById("answerBox");
+  const statusEl = document.getElementById("status");
+
+  const undoBtn = document.getElementById("undoBtn");
+  const resetBtn = document.getElementById("resetBtn");
+  const submitBtn = document.getElementById("submitBtn");
+
+  // Keep a stack of chosen tile indices to allow Undo
+  const chosen = [];          // indices in pool[] that have been used
+  const used = new Set();     // same indices for quick lookup
+
+  function renderTiles() {
+    tilesEl.innerHTML = "";
+    pool.forEach((ch, idx) => {
+      const btn = document.createElement("button");
+      btn.className = "tile" + (used.has(idx) ? " used" : "") + (ch === " " ? " space" : "");
+      btn.type = "button";
+      btn.dataset.index = idx;
+      btn.textContent = ch === " " ? "␣" : ch.toUpperCase();
+      btn.setAttribute("aria-label", ch === " " ? "space" : ch.toUpperCase());
+      btn.addEventListener("click", () => pick(idx));
+      tilesEl.appendChild(btn);
+    });
+  }
+
+  function currentStr() {
+    // Build from chosen indices, preserving the exact character (space or letter)
+    return chosen.map(i => pool[i] === " " ? " " : pool[i].toUpperCase()).join("");
+  }
+
+  function updateAnswer() {
+    answerEl.textContent = currentStr();
+  }
+
+  function pick(idx) {
+    if (used.has(idx)) return; // already used tile
+    used.add(idx);
+    chosen.push(idx);
+    updateAnswer();
+    renderTiles();
+    statusEl.textContent = "";
+  }
+
+  function undo() {
+    if (chosen.length === 0) return;
+    const last = chosen.pop();
+    used.delete(last);
+    updateAnswer();
+    renderTiles();
+    statusEl.textContent = "";
+  }
+
+  function resetAll() {
+    chosen.length = 0;
+    used.clear();
+    updateAnswer();
+    renderTiles();
+    statusEl.textContent = "";
+  }
+
+  function submit() {
+    const guess = currentStr();
+    if (guess === TARGET) {
+      statusEl.textContent = "✅ Well done! Correct: " + TARGET;
+      statusEl.className = "status ok";
+    } else {
+      statusEl.textContent = "❌ Not quite. Keep trying!";
+      statusEl.className = "status err";
+    }
+  }
+
+  // Wire controls
+  undoBtn.addEventListener("click", undo);
+  resetBtn.addEventListener("click", resetAll);
+  submitBtn.addEventListener("click", submit);
+
+  // Initial paint
+  renderTiles();
+  updateAnswer();
+</script>
+</body>
+</html>
